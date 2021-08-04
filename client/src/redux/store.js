@@ -9,5 +9,5 @@ const RootReducer = combineReducers({
 
 
 const store = createStore(RootReducer, applyMiddleware(thunk));
-
+window.s = store.getState();
 export default store;

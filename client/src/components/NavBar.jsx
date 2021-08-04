@@ -1,6 +1,10 @@
 import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../redux/reducers/userReducer";
 
-const Navbar = () => {
+const NavBar = () => {
+   const isAuth = useSelector(({user}) => user.isAuth)
+   const dispatch = useDispatch()
    return (
       <>
       <header className="header">
@@ -9,8 +13,11 @@ const Navbar = () => {
                Cloud disk
             </div>
             <div className="header-menu">
-               <NavLink to="/login" activeClassName="selected">Вход</NavLink>
-               <NavLink to="/registration">Регистрация</NavLink>
+               {!isAuth && <NavLink to="/login" activeClassName="selected">Вход</NavLink>}
+               {!isAuth && <NavLink to="/registration">Регистрация</NavLink>}
+               {isAuth && <div onClick={() => dispatch(logout())}>Выход</div>}
+
+
             </div>
          </div>
       </header>
@@ -18,4 +25,4 @@ const Navbar = () => {
    )
 }
 
-export default Navbar;
+export default NavBar;
