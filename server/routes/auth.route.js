@@ -6,7 +6,9 @@ const router = new Router();
 const bcrypt = require("bcrypt");
 const {check, validationResult} = require("express-validator");
 const User = require("./../model/User")
-const authMiddleware = require("./../middleware/auth.middleware")
+const authMiddleware = require("./../middleware/auth.middleware");
+const FileServices = require("../services/FileServices");
+const File = require("../model/File");
 
 router.post("/registration", [
     check("email", "Uncorrect email").isEmail(),
@@ -23,9 +25,11 @@ router.post("/registration", [
         if(candidate) {
             return res.status(400).json({message: `User with email ${email} already exist`});
         }
+        
         const hashPassword = await bcrypt.hash(password, 5);
         const user = new User({email, password: hashPassword});
         await user.save();
+        await FileServices.createDir(new File({user: user.id, name:''}));
         return res.json({message: "User was created"})
 
 
