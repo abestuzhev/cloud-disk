@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {login} from "../redux/actions/user";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
@@ -6,15 +6,18 @@ import {useState} from "react";
 const Login = () => {
 
    const dispatch = useDispatch();
+   const history = useHistory();
 
-   const [email, setEmail] = useState("admin@test.ru");
-   const [password, setPassword] = useState("admin");
+   const [email, setEmail] = useState("tester15@tester.ru");
+   const [password, setPassword] = useState("tester15");
 
    const handleSubmit = (event) => {
       event.preventDefault();
       dispatch(login({email, password}))
+      
       console.log({email, password})
    }
+
 
    return (
       <>

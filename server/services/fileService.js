@@ -1,4 +1,5 @@
 const config = require("config");
+const fs = require('fs')
 
 class FileServices {
     createDir(file){

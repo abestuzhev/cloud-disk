@@ -1,4 +1,4 @@
-import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter, Switch, Route, Link, Redirect} from "react-router-dom";
 import "./scss/style.scss";
 import Login from "./components/Login"
 import Registration from "./components/Registration"
@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {auth} from "./redux/actions/user";
+import PublicHomePage from "./components/PublicHomePage";
 
 
 function App() {
@@ -13,10 +14,10 @@ function App() {
    const dispatch = useDispatch();
 
    useEffect(()=> {
-       if(localStorage.getItem("token")) {
-           dispatch(auth());
-           console.log("auth")
-       }
+      if(localStorage.getItem("token")) {
+         dispatch(auth());
+         console.log("auth")
+      }
 
    }, [])
 
@@ -28,16 +29,22 @@ function App() {
                <NavBar />
 
                {
-                  !isAuth &&  <Switch>
+                  !isAuth ?
+                  <Switch>                     
                      <Route path="/login">
-                        <Login />
+                        <Login />    
                      </Route>
                      <Route path="/registration">
                         <Registration />
                      </Route>
-                     <Route path="/" exact>
-                        Home page
+                     <Redirect to="/login" />                     
+                  </Switch>
+                  :
+                  <Switch>
+                     <Route exact path="/">
+                        <PublicHomePage /> 
                      </Route>
+                     <Redirect to="/" />
                   </Switch>
                }
 

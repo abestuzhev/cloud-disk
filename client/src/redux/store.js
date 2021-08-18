@@ -1,10 +1,12 @@
 
 import {combineReducers, createStore, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
+import fileReducer from "./reducers/fileReducer";
 import userReducer from "./reducers/userReducer";
 
 const RootReducer = combineReducers({
     user: userReducer,
+    files: fileReducer
 });
 
 
