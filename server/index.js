@@ -19,12 +19,16 @@ const start = async () => {
     try {
 
 
-        await mongoose.connect(dbURL);
+        await mongoose.connect(dbURL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }).catch(err => console.log(err.reason));
+            
         app.listen(PORT, () => {
             console.log("START server on", PORT);
         })
     }catch(e){
-
+        console.log("error", e);
     }
 }
 start();
