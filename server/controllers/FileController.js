@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 
-
-class FileController {
-    createDir() {
-=======
 const fileService = require('../services/fileService')
 const User = require('../models/User')
 const File = require('../models/File')
@@ -39,8 +34,6 @@ class FileController {
         } catch (error) {
             return res.status(500).json({message: `${error}, uncorrect getFile function`})
         }
->>>>>>> 30fed92d5b5dce1edd0f449f83225b89ea4e5049
-        
     }
 }
 

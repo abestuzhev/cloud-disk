@@ -1,6 +1,6 @@
-const {Shema, model, ObjectId, models} = require("mongoose");
+const {Schema, model, ObjectId, models} = require("mongoose");
 
-const File = new Shema({
+const File = new Schema({
     name: {type: String, required: true},
     type: {type: String, required: true},
     accessLink: {type: String},

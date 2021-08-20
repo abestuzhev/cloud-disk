@@ -10,13 +10,13 @@ const fileReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_FILES: {
             return {
-                ... state,
+                ...state,
                 files: action.payload
             }
         }
         case SET_CURRENT_DIR: {
             return {
-                ... state,
+                ...state,
                 currentDir: action.payload
             }
         }
