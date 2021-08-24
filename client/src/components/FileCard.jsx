@@ -1,10 +1,24 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { pushDir, setCurrentDir } from '../redux/reducers/fileReducer';
 
 export default function FileCard({file}) {
+
+    const dispatch = useDispatch();
+
+    const currentDir = useSelector(state => state.files.currentDir);
+
+    const pushDirhandler = () => {
+        dispatch(pushDir(currentDir))        
+        dispatch(setCurrentDir(file._id))
+        console.log("file._id", file._id);
+    }
+
+
     return (
         <>
         <div className="listing-item">
-            <div className="listing-card">
+            <div className="listing-card" onClick={() => pushDirhandler()}>
                 <div className="listing-card__icon"><i></i></div>
                 <div className="listing-card__info">
                     <div className="listing-card__name">{file.name}</div>

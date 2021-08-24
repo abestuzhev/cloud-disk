@@ -5,5 +5,6 @@ const router = new Router();
 
 router.post('', authMiddleware, FileController.createDir);
 router.get('', authMiddleware, FileController.getFiles);
+router.post('/upload', authMiddleware, FileController.fileUpload);
 
 module.exports = router;

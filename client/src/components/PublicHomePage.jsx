@@ -3,11 +3,12 @@ import FileCard from './FileCard';
 import {useDispatch, useSelector} from "react-redux";
 import {createDir, getFiles} from "../redux/actions/file";
 import Popup from './Popup';
-import { setPopupDisplay } from '../redux/reducers/fileReducer';
+import { setCurrentDir, setPopupDisplay } from '../redux/reducers/fileReducer';
 
 export default function PublicHomePage() {
     const dispatch = useDispatch();
     const currentDir = useSelector(state => state.files.currentDir);
+    const stackDir = useSelector(state => state.files.stackDir);
     
     const files = useSelector(state => state.files.files);
 
@@ -20,12 +21,22 @@ export default function PublicHomePage() {
         dispatch(setPopupDisplay("flex"));
     }
 
+    const backToDirHandler = () => {
+        const dir = stackDir.pop();
+        dispatch(setCurrentDir(dir));
+    } 
+
     return (
         <div className="content-page">
             <div className="home">
                 <div className="client-listing">
                     <div className="listing-head">
                         <div className="listing-create">
+                            {
+                                (stackDir.length === 0) ? "" 
+                                : <button className="c-btn c-btn--outline" onClick={() => backToDirHandler()}>Назад</button>
+                            }
+                            
                             <button className="c-btn c-btn--outline">Загрузить</button>
                             <button className="c-btn c-btn--outline" onClick={shoPopupHandler}>Создать</button>
                         </div>
