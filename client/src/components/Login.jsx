@@ -7,8 +7,8 @@ const Login = () => {
 
    const dispatch = useDispatch();
 
-   const [email, setEmail] = useState("tester15@tester.ru");
-   const [password, setPassword] = useState("tester15");
+   const [email, setEmail] = useState("user@user.ru");
+   const [password, setPassword] = useState("user");
 
    const handleSubmit = (event) => {
       event.preventDefault();
