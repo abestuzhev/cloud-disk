@@ -11,12 +11,12 @@ import PublicHomePage from "./components/PublicHomePage";
 
 function App() {
    const isAuth = useSelector(({user}) => user.isAuth);
+   const user = useSelector(({user}) => user);
    const dispatch = useDispatch();
 
    useEffect(()=> {
       if(localStorage.getItem("token")) {
          dispatch(auth());
-         console.log("auth")
       }
 
    }, [])

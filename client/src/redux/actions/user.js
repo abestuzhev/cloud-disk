@@ -31,6 +31,7 @@ export const auth = () => {
                 {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
             )
             dispatch(setUser(response.data.user))
+            console.log(response.data.user)
             localStorage.setItem('token', response.data.token)
         } catch (e) {
             alert(e.response.data.message)

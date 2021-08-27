@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { pushDir, setCurrentDir } from '../redux/reducers/fileReducer';
-import {downloadFile} from "../redux/actions/file";
+import {deletedFile, downloadFile} from "../redux/actions/file";
 
 export default function FileCard({file}) {
 
@@ -20,6 +20,9 @@ export default function FileCard({file}) {
     const downloadFileHandler = (e) => {
         e.preventDefault();
         downloadFile(file);
+    }
+    const deleteFileHandler = (fileId) => {
+        dispatch(deletedFile(fileId));
     }
 
 
@@ -48,7 +51,7 @@ export default function FileCard({file}) {
                         {
                             file.type === "dir" ? "" : <button className="listing-card__btn" onClick={(e)=> downloadFileHandler(e)}>Скачать</button>
                         }
-                        <button className="listing-card__btn">Удалить</button>
+                        <button className="listing-card__btn" onClick={() => deleteFileHandler(file._id)}>Удалить</button>
                     </div>
                 </div>
             </div>

@@ -61,14 +61,18 @@ class FileController {
             if (fs.existsSync(path)) {
                 return res.status(400).json({message: 'File already exist'})
             }
-            file.mv(path)
+            file.mv(path);
+            let filePath = file.name;
+            if(parent) {
+                filePath = parent.path + '\\' + file.name;
+            }
 
             const type = file.name.split('.').pop()
             const dbFile = new File({
                 name: file.name,
                 type,
                 size: file.size,
-                path: parent?.path,
+                path: filePath,
                 parent: parent?._id,
                 user: user._id
             })
@@ -94,6 +98,20 @@ class FileController {
 
         }catch(e) {
             return res.status(500).json({message: "Download file error", e})
+        }
+    }
+
+    async deleteFile(req, res){
+        try {
+            const file = await File.findOne({user: req.user.id, _id: req.query.id});
+            if(!file) {
+                return res.status(404).json({message: "File not found"});
+            }
+            fileService.deleteFile(file);
+            await file.remove();
+            return res.json({message: "File was created"});
+        }catch(e) {
+            return res.status(500).json({message: "Delete file error", e})
         }
     }
         
