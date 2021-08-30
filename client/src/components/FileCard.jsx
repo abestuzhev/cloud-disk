@@ -19,10 +19,12 @@ export default function FileCard({file}) {
 
     const downloadFileHandler = (e) => {
         e.preventDefault();
+
+        console.log("file",file)
         downloadFile(file);
     }
-    const deleteFileHandler = (fileId) => {
-        dispatch(deletedFile(fileId));
+    const deleteFileHandler = (file) => {
+        dispatch(deletedFile(file));
     }
 
 
@@ -51,7 +53,7 @@ export default function FileCard({file}) {
                         {
                             file.type === "dir" ? "" : <button className="listing-card__btn" onClick={(e)=> downloadFileHandler(e)}>Скачать</button>
                         }
-                        <button className="listing-card__btn" onClick={() => deleteFileHandler(file._id)}>Удалить</button>
+                        <button className="listing-card__btn" onClick={() => deleteFileHandler(file)}>Удалить</button>
                     </div>
                 </div>
             </div>

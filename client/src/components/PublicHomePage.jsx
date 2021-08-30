@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {createDir, getFiles, uploadFile} from "../redux/actions/file";
 import Popup from './Popup';
 import { setCurrentDir, setPopupDisplay } from '../redux/reducers/fileReducer';
+import UploadFiles from "./uploadFile/UploadFiles";
 
 export default function PublicHomePage() {
     const dispatch = useDispatch();
@@ -86,6 +87,7 @@ export default function PublicHomePage() {
                                 </div>
                             </div>
                             <Popup />
+                            <UploadFiles />
                         </div>
                 }
 

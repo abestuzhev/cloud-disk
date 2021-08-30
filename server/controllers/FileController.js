@@ -90,7 +90,7 @@ class FileController {
     async downloadFile(req, res){
         try {
             const file = await File.findOne({user: req.user.id, _id: req.query.id});
-            const path = `${config.get('filePath')}\\${req.user.id}\\${file.path}\\${file.name}`;
+            const path = `${config.get('filePath')}\\${req.user.id}\\${file.path}`;
             if(fs.existsSync(path)){
                 return res.download(path, file.name);
             }

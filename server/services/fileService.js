@@ -29,7 +29,7 @@ class FileServices {
     }
 
     getPath(file){
-        return `${config.get("filePath")}\\${file.name}\\${file.name}`;
+        return `${config.get("filePath")}\\${file.user}\\${file.path}`;
     }
 }
 

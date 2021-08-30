@@ -3,10 +3,12 @@ import {combineReducers, createStore, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import fileReducer from "./reducers/fileReducer";
 import userReducer from "./reducers/userReducer";
+import uploadReducer from "./reducers/uploadReducer";
 
 const RootReducer = combineReducers({
     user: userReducer,
-    files: fileReducer
+    files: fileReducer,
+    upload: uploadReducer
 });
 
 
