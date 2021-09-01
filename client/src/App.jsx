@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {auth} from "./redux/actions/user";
 import PublicHomePage from "./components/PublicHomePage";
+import Profile from "./components/Profile/Profile";
 
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
                   <Switch>
                      <Route exact path="/">
                         <PublicHomePage /> 
+                     </Route>
+                     <Route exact path="/profile">
+                        <Profile />
                      </Route>
                      <Redirect to="/" />
                   </Switch>

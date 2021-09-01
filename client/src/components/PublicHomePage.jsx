@@ -3,15 +3,18 @@ import FileCard from './FileCard';
 import {useDispatch, useSelector} from "react-redux";
 import {createDir, getFiles, uploadFile} from "../redux/actions/file";
 import Popup from './Popup';
-import { setCurrentDir, setPopupDisplay } from '../redux/reducers/fileReducer';
+import {changeViewFiles, setCurrentDir, setPopupDisplay} from '../redux/reducers/fileReducer';
 import UploadFiles from "./uploadFile/UploadFiles";
+import Select from "./Select";
 
 export default function PublicHomePage() {
     const dispatch = useDispatch();
     const currentDir = useSelector(state => state.files.currentDir);
     const stackDir = useSelector(state => state.files.stackDir);
+    const view = useSelector(({files}) => files.view);
     const [dragEnter, setDragEnter] = useState(false);
-    
+    const [sortValue, setSortValue] = useState("name");
+
     const files = useSelector(state => state.files.files);
 
     useEffect(() => {
@@ -58,6 +61,11 @@ export default function PublicHomePage() {
         setDragEnter(false);
     }
 
+    const changeSortValue = (value) => {
+        setSortValue(value);
+        dispatch(getFiles(currentDir, sortValue))
+    }
+
     return (
         <div className="content-page" >
             <div className="home">
@@ -78,9 +86,28 @@ export default function PublicHomePage() {
                                     </div>
                                     <button className="c-btn c-btn--outline" onClick={shoPopupHandler}>Создать папку</button>
                                 </div>
+                                <div className="listing-operation">
+                                    <div className="listing-sort">
+                                        <select className="c-select" name="sort" id="sort" value={sortValue} onChange={(e) => changeSortValue(e.target.value)}>
+                                            <option value="name">Имя</option>
+                                            <option value="type">Тип файла</option>
+                                            <option value="date">Дата создания</option>
+                                        </select>
+                                        <Select />
+                                    </div>
+                                    <div className="listing-view">
+                                        <div className="listing-view__item">
+                                            <div className="listing-view__icon list" onClick={() => dispatch(changeViewFiles("list"))}> </div>
+                                        </div>
+                                        <div className="listing-view__item">
+                                            <div className="listing-view__icon plate" onClick={() => dispatch(changeViewFiles("plate"))}> </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div className="listing">
-                                <div className="listing-items">
+                                <div className={view === "plate" ? "listing-items listing-items--plate" : "listing-items"}>
                                     {
                                         files.map(item => <FileCard file={item} key={item._id} />)
                                     }

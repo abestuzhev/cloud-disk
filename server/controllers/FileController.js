@@ -4,6 +4,7 @@ const File = require('../models/File')
 const User = require('../models/User')
 const config = require("config");
 const fs = require("fs");
+const Uuid = require("uuid");
 
 
 class FileController {
@@ -31,7 +32,25 @@ class FileController {
 
     async getFiles(req, res) {
         try {
-            const files = await File.find({user: req.user.id, parent: req.query.parent});
+            const {sort} = req.query;
+            let files;
+            switch (sort) {
+                case "name":
+                    files = await File.find({user: req.user.id, parent: req.query.parent}).sort({name: 1});
+                    break;
+                case "type":
+                    files = await File.find({user: req.user.id, parent: req.query.parent}).sort({type: 1})
+                    break;
+
+                case "date":
+                    files = await File.find({user: req.user.id, parent: req.query.parent}).sort({date: 1})
+                    break;
+
+                default:
+                    files = await File.find({user: req.user.id, parent: req.query.parent});
+                    break;
+            }
+
             return res.json(files);
         } catch (error) {
             return res.status(500).json({message: `${error}, uncorrect getFile function`})
@@ -110,6 +129,22 @@ class FileController {
             fileService.deleteFile(file);
             await file.remove();
             return res.json({message: "File was created"});
+        }catch(e) {
+            return res.status(500).json({message: "Delete file error", e})
+        }
+    }
+
+    async uploadAvatar(req, res){
+        try {
+            const file = req.files.file
+            const user = await User.findById(req.user.id);
+            const avatarName = Uuid.v4();
+            const path = config.get("staticPath") + avatarName;
+            file.mv(path);
+            user.avatar = path;
+            await user.save();
+
+            return res.json(user);
         }catch(e) {
             return res.status(500).json({message: "Delete file error", e})
         }

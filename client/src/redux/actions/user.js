@@ -1,5 +1,6 @@
 import { setUser } from "../reducers/userReducer";
 import axios from "axios";
+import {API_PATH} from "../../config";
 
 
 export const registration = async ({email, password}) => {
@@ -36,6 +37,32 @@ export const auth = () => {
         } catch (e) {
             alert(e.response.data.message)
             localStorage.removeItem('token')
+        }
+    }
+}
+export const uploadAvatar = (file) => {
+    return async dispatch => {
+        try {
+            const formData = new FormData();
+            formData.append("file", file)
+            const response = await axios.post(`${API_PATH}/api/avatar`, formData,
+                {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
+            )
+            dispatch(setUser(response.data))
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+    }
+}
+export const deleteAvatar = () => {
+    return async dispatch => {
+        try {
+            const response = await axios.delete(`${API_PATH}/api/avatar`,
+                {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
+            )
+            dispatch(setUser(response.data))
+        } catch (e) {
+            alert(e.response.data.message)
         }
     }
 }

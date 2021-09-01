@@ -52,6 +52,14 @@ body {
     padding: 14px 20px;
     box-shadow: 0 4px 10px rgb(0, 0, 0, .08);
 
+    &-avatar {
+        &__icon {
+            width: 40px;
+            height: 40px;
+            background-color: #ffd625;
+            border-radius: 50%;
+        }
+    }
 
     &-layout {
         max-width: 1100px;
@@ -65,9 +73,13 @@ body {
         font-size: 20px;
         font-weight: 700;
         text-transform: uppercase;
+        text-decoration: none;
     }
 
     &-menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         a {
             text-decoration: none;
             font-size: 18px;
@@ -285,8 +297,34 @@ body {
 
     &-head {
         margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+
     }
     
+    &-items {
+        &--plate {
+            display: flex;
+            justify-content: flex-start;
+
+            .listing-item {
+
+                width: 130px;
+            }
+            .listing-card {
+
+                &__name {
+                    text-align: center;
+                    margin-top: 4px;
+                    position: relative;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
     &-item {
 
     }
@@ -416,6 +454,31 @@ body {
             border-radius: 6px;
             cursor: pointer;
         }
+
+        &--plate {
+            display: block;
+            .listing-card__icon {
+                &--dir {
+                    i {
+                        width: 100px;
+                        height: 100px;
+
+                        &::before {
+                            width: 43px;
+                            height: 12px;
+                            top: -9px;
+                        }
+                    }
+                }
+
+                &--file {
+                    i {
+                        width: 100px;
+                        height: 100px;
+                    }
+                }
+            }
+        }
     }
 
     &-download {
@@ -438,6 +501,79 @@ body {
 
         input[type=file] {
             display: none;
+        }
+    }
+
+    &-operation {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &-view {
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 10px;
+        &__item {
+            margin-left: 10px;
+        }
+        
+        &__icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            border: 2px solid #d3d3d3;
+            cursor:pointer;
+
+            &.list {
+                position: relative;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 4px;
+                    top: 4px;
+                    right: 4px;
+                    height: 12px;
+                    border-radius: 2px;
+                    background-color:#d3d3d3;
+                }
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 4px;
+                    top: 20px;
+                    right: 4px;
+                    height: 12px;
+                    border-radius: 2px;
+                    background-color:#d3d3d3;
+                }
+            }
+
+            &.plate {
+                position: relative;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 4px;
+                    top: 4px;
+                    right: 4px;
+                    width: 12px;
+                    height: 28px;
+                    border-radius: 2px;
+                    background-color:#d3d3d3;
+                }
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 20px;
+                    top: 4px;
+                    right: 4px;
+                    width: 12px;
+                    height: 28px;
+                    border-radius: 2px;
+                    background-color:#d3d3d3;
+                }
+            }
         }
     }
 }
@@ -585,4 +721,13 @@ body {
         }
     }
 
+}
+
+.c-select {
+    height: 42px;
+    width: 150px;
+    padding: 10px;
+    border: 2px solid #9b2aff;
+    border-radius: 6px;
+    cursor: pointer;
 }
