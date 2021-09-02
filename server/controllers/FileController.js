@@ -138,12 +138,23 @@ class FileController {
         try {
             const file = req.files.file
             const user = await User.findById(req.user.id);
-            const avatarName = Uuid.v4();
-            const path = config.get("staticPath") + avatarName;
+            const avatarName = Uuid.v4() + '.jpg';
+            const path = config.get("staticPath") + '\\' + avatarName;
             file.mv(path);
-            user.avatar = path;
+            user.avatar = avatarName;
             await user.save();
-
+            return res.json(user);
+        }catch(e) {
+            return res.status(500).json({message: "Delete file error", e})
+        }
+    }
+    async deleteAvatar(req, res){
+        try {
+            const user = await User.findById(req.user.id);
+            const path = config.get("staticPath") + '\\' + user.avatar;
+            fs.unlinkSync(path);
+            user.avatar = null;
+            await user.save();
             return res.json(user);
         }catch(e) {
             return res.status(500).json({message: "Delete file error", e})

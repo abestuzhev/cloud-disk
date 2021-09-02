@@ -2,5 +2,6 @@
   "serverPort": "5000",
   "dbURL": "mongodb+srv://cloud:root@cloud-disk.i7fuu.mongodb.net/Cloud-disk?retryWrites=true&w=majority",
   "secretKey": "PrivateKey",
-  "filePath": "D:\\code\\cloud-disk\\server\\files"
+  "filePath": "D:\\code\\cloud-disk\\server\\files",
+  "staticPath": "D:\\code\\cloud-disk\\server\\static"
 }

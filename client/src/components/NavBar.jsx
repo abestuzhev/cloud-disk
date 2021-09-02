@@ -1,10 +1,11 @@
 import {Link, NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../redux/reducers/userReducer";
+import {API_PATH} from "../config";
 
 const NavBar = () => {
    const isAuth = useSelector(({user}) => user.isAuth)
-   const avatar = useSelector(({user}) => user.avatar)
+   const avatar = useSelector(({user}) => user.currentUser.avatar)
    const dispatch = useDispatch()
 
    const handleExit = (e) => {
@@ -23,7 +24,7 @@ const NavBar = () => {
                {!isAuth && <NavLink to="/registration">Регистрация</NavLink>}
                {isAuth && <a href="#" className="header-menu__link" onClick={handleExit}>Выход</a>}
                {isAuth && <NavLink to="/profile" className=" header-menu__link header-avatar">
-                  {avatar ? <img src={avatar} alt=""/> : <div className="header-avatar__icon"> </div>   }
+                  {avatar ? <img src={API_PATH + '\\' + avatar} alt=""/> : <div className="header-avatar__icon"> </div>   }
                </NavLink>}
             </div>
          </div>
